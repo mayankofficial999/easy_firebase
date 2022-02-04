@@ -204,9 +204,9 @@ void main() {
 To use any of the functionalities you just have to create an object of it , for eg : 
 ```
 var auth = EasyFire().getAuthObject();
-var store = EasyFire().getAuthObject();
-var rtdb = EasyFire().getAuthObject();
-var storage = EasyFire().getAuthObject();
+var store = EasyFire().getFirestoreObject();
+var rtdb = EasyFire().getRtdbObject();
+var storage = EasyFire().getStorageObject();
 
 //To login with google 
 auth.signInWithGoogle();

@@ -1,7 +1,7 @@
 name: easy_firebase
 description: An useful tool to quickly use firebase functionalities in any flutter app.
 version: 0.0.1
-homepage: 
+homepage: https://github.com/mayankofficial999/easy_firebase.git
 
 environment:
   sdk: ">=2.14.0 <3.0.0"

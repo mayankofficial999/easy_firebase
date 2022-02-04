@@ -226,5 +226,5 @@ storage.downloadFile(
 ```
 
 ## Contribution and Issues  
-* To report issues , go to this [repo](link) , and open an new issue.
+* To report issues , go to this [repo](https://github.com/mayankofficial999/easy_firebase.git) , and open an new issue.
 * If you want to contribute to this package , then open a new pull request with the functionality which you implemented and get it merged.

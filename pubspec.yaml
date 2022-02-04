@@ -1,0 +1,36 @@
+name: easy_firebase
+description: An useful tool to quickly use firebase functionalities in any flutter app.
+version: 0.0.1
+homepage: 
+
+environment:
+  sdk: ">=2.14.0 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  firebase_core: ^1.6.0
+  firebase_database: ^9.0.5
+  firebase_auth: ^3.1.0
+  google_sign_in: ^5.0.7
+  flutter_login_facebook: ^1.2.0
+  cloud_firestore: ^3.1.6
+  firebase_storage: ^10.2.5
+  path_provider: ^2.0.8
+  file_saver: ^0.0.10
+  permission_handler: ^8.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^1.0.0
+
+# The following section is specific to Flutter.
+flutter:
+
+  # To add assets to your package, add an assets section, like this:
+  # assets:
+  #   - images/a_dot_burr.jpeg
+  #   - images/a_dot_ham.jpeg
+

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
 import 'package:file_saver/file_saver.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -26,7 +28,8 @@ class FireStorage {
         .list(firebase_storage.ListOptions(maxResults: max));
 
     if (result.nextPageToken != null) {
-      firebase_storage.ListResult additionalResults = await firebase_storage
+      //firebase_storage.ListResult additionalResults =
+      await firebase_storage
           .FirebaseStorage.instance
           .ref(filePath)
           .list(firebase_storage.ListOptions(

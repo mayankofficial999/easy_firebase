@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
@@ -25,8 +27,9 @@ class Authentication {
         // Get email (since we request email permission)
         final email = await fb.getUserEmail();
         // But user can decline permission
-        if (email != null)
+        if (email != null) {
           print('And your email is $email');
+        }
         break;
       case FacebookLoginStatus.cancel:
         // User cancel log in
@@ -67,6 +70,7 @@ class Authentication {
     } on FirebaseAuthException catch (e){
       print(e);
     }
+    return null;
   }
 
   Future<void> mailVerification() async{
@@ -83,7 +87,7 @@ class Authentication {
   Future<User?> signInAnonymously() async {
     UserCredential userCredential= await FirebaseAuth.instance.signInAnonymously();
     print("Anonymous sign in succesfull");
-    return FirebaseAuth.instance.currentUser;
+    return userCredential.user;
   }
 
   Future<UserCredential> reauthenticate(mail,pass) async {
@@ -110,6 +114,7 @@ class Authentication {
         print('The user must reauthenticate before this operation can be executed.');
       }
     }
+    return null;
   }
 
   Future<User?> signinMail(String a,String b) async {
@@ -122,6 +127,7 @@ class Authentication {
     } on FirebaseAuthException catch (e) {
       print(e);
     }
+    return null;
   }
 
   Future<FirebaseAuth> otpLogin(String mobile, BuildContext context) async{
@@ -143,7 +149,7 @@ class Authentication {
       codeSent: (String verificationId, int? forceResendingToken){
         showDialog(
           context: context,
-          barrierDismissible: false,
+          barrierDismissible: true,
           builder: (context) => AlertDialog(
             title: const Text("Enter SMS Code"),
             content: Column(
@@ -167,6 +173,7 @@ class Authentication {
                     print(e);
                   });
                   print("OTP Login Successful");
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("OTP Login Successful"),));
                 },
               )
             ],

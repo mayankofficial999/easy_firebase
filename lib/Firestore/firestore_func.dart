@@ -25,6 +25,7 @@ class FireStore
       {
         Map<String, dynamic> data = value.data() as Map<String, dynamic>;
         print(data);
+        return data;
       }
     });
     return data;

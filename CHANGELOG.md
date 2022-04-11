@@ -1,3 +1,7 @@
+## 0.0.4
+
+- Fixed firestore getData() bug
+
 ## 0.0.3
 
 - Minor Changes

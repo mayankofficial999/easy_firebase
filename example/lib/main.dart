@@ -1,12 +1,15 @@
 // ignore_for_file: avoid_print
 
 import 'package:easy_firebase/easy_firebase.dart';
+import 'package:example/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform
+  );
   runApp(const MyApp());
 }
 
@@ -61,22 +64,29 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          _incrementCounter;
+          _incrementCounter();
           //To signIn with Google
-          auth.signInWithGoogle();
+          // await auth.signInWithGoogle();
           //To get firestore data
-          print(store.getData('Users', 'id'));
+          // To download data from firebase storage
+          store.getData('Users', 'uid').then((value) => 
+            print(value)
+          );
           //To get Realtime Database data
-          print(rtdb.getData('/data'));
-          //To download data from firebase storage
-          storage.downloadFile(firestorePath: '/image.png',fileName: 'demo.png');
+          rtdb.getData('/data').then((value) => 
+            print(value)
+          );
+          // To download a file (opens a file picker)
+          storage.downloadFile(firestorePath: '/sample.png');
+          // To upload a file (opens file picker)
+          storage.uploadFile();
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),

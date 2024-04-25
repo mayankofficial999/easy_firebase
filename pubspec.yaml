@@ -1,25 +1,25 @@
 name: easy_firebase
 description: An useful tool to quickly use firebase functionalities in any flutter app.
-version: 0.0.4
+version: 0.1.0
 homepage: https://github.com/mayankofficial999/easy_firebase.git
 
 environment:
-  sdk: ">=2.14.0 <3.0.0"
+  sdk: ">=2.14.0 <3.20.0"
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  firebase_core: ^1.6.0
-  firebase_database: ^9.0.5
-  firebase_auth: ^3.1.0
-  google_sign_in: ^5.0.7
-  flutter_login_facebook: ^1.2.0
-  cloud_firestore: ^3.1.6
-  firebase_storage: ^10.2.5
-  path_provider: ^2.0.8
-  file_saver: ^0.0.10
-  permission_handler: ^8.3.0
+  cloud_firestore: ^4.0.0
+  file_picker: ^8.0.2
+  firebase_core: ^2.30.0
+  firebase_database: ^10.5.0
+  firebase_storage: ^11.7.0
+  firebase_auth: ^4.19.0
+  flutter_login_facebook: ^1.9.0
+  google_sign_in: ^6.2.0
+  path_provider: ^2.1.0
+  permission_handler: ^11.3.0
 
 dev_dependencies:
   flutter_test:

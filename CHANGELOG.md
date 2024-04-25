@@ -1,3 +1,12 @@
+## 0.1.0
+
+- Added filepicker for
+    - uploadFile
+    - downloadFile
+- Added API Documentation
+- Migrated sample app to flutter 3
+- Minor bug fixes
+
 ## 0.0.4
 
 - Fixed firestore getData() bug

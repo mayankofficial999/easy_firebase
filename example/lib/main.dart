@@ -7,14 +7,11 @@ import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -29,7 +26,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-
   const MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
   @override
@@ -39,10 +35,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  var auth=EasyFire().getAuthObject();
-  var store=EasyFire().getFirestoreObject();
-  var rtdb=EasyFire().getRtdbObject();
-  var storage=EasyFire().getStorageObject();
+  var auth = EasyFire().getAuthObject();
+  var store = EasyFire().getFirestoreObject();
+  var rtdb = EasyFire().getRtdbObject();
+  var storage = EasyFire().getStorageObject();
   void _incrementCounter() {
     setState(() {
       _counter++;
@@ -76,13 +72,9 @@ class _MyHomePageState extends State<MyHomePage> {
           // await auth.signInWithGoogle();
           //To get firestore data
           // To download data from firebase storage
-          store.getData('Users', 'uid').then((value) => 
-            print(value)
-          );
+          store.getData('Users', 'uid').then((value) => print(value));
           //To get Realtime Database data
-          rtdb.getData('/data').then((value) => 
-            print(value)
-          );
+          rtdb.getData('/data').then((value) => print(value));
           // To download a file (opens a file picker)
           storage.downloadFile(firestorePath: '/sample.png');
           // To upload a file (opens file picker)

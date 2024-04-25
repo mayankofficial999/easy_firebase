@@ -8,7 +8,7 @@ class RTDB {
   final FirebaseDatabase database = FirebaseDatabase.instance;
 
   /// Returns the instance of [FirebaseDatabase] used in this class.
-  FirebaseDatabase getRtdbInstance(){
+  FirebaseDatabase getRtdbInstance() {
     return database;
   }
 

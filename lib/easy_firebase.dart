@@ -9,7 +9,6 @@ import 'package:easy_firebase/storage/firestore_storage.dart';
 /// authentication, Firestore database operations, Realtime Database operations,
 /// and Firebase Storage operations.
 class EasyFire {
-
   /// Returns an instance of [FireStore] which provides methods for interacting
   /// with Firestore database.
   FireStore getFirestoreObject() {

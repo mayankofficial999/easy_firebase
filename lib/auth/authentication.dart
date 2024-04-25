@@ -8,15 +8,17 @@ import 'package:google_sign_in/google_sign_in.dart';
 /// A utility class to handle various authentication methods including
 /// email, Google, Facebook, and anonymous sign-ins, as well as user management functions.
 class Authentication {
-
   /// Signs in a user using their Facebook account.
-  /// 
+  ///
   /// This method requests public profile and email permissions, and handles the
   /// authentication flow for Facebook login. It prints the status, access token,
   /// user profile details, profile image URL, and email address if available.
   Future<FacebookLogin> signInWithFacebook() async {
     final fb = FacebookLogin();
-    final res = await fb.logIn(permissions: [FacebookPermission.publicProfile, FacebookPermission.email,]);
+    final res = await fb.logIn(permissions: [
+      FacebookPermission.publicProfile,
+      FacebookPermission.email,
+    ]);
     switch (res.status) {
       case FacebookLoginStatus.success:
         print("Facebook Log-In Successfull");
@@ -41,13 +43,14 @@ class Authentication {
   }
 
   /// Signs in a user using their Google account.
-  /// 
+  ///
   /// Initiates a Google sign-in process, retrieves authentication details, and
   /// signs the user in with those credentials. Returns the [GoogleSignInAccount]
   /// for the signed-in user.
   Future<GoogleSignInAccount?> signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
     final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
@@ -57,17 +60,15 @@ class Authentication {
   }
 
   /// Registers a new user with an email and password.
-  /// 
+  ///
   /// On successful registration, returns the [User] object for the registered user.
   /// Prints any errors encountered during the sign-up process.
   Future<User?> signupMail(String email, String password) async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: email,
-      password: password
-      );
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
       return userCredential.user;
-    } on FirebaseAuthException catch (e){
+    } on FirebaseAuthException catch (e) {
       print(e);
     }
     return null;
@@ -92,7 +93,8 @@ class Authentication {
   ///
   /// Returns the [User] object for the anonymously signed-in user.
   Future<User?> signInAnonymously() async {
-    UserCredential userCredential= await FirebaseAuth.instance.signInAnonymously();
+    UserCredential userCredential =
+        await FirebaseAuth.instance.signInAnonymously();
     print("Anonymous sign in succesfull");
     return userCredential.user;
   }
@@ -101,8 +103,10 @@ class Authentication {
   ///
   /// Necessary before performing sensitive operations such as deleting an account.
   Future<UserCredential> reauthenticate(String email, String password) async {
-    AuthCredential credential = EmailAuthProvider.credential(email: email, password: password);
-    return await FirebaseAuth.instance.currentUser!.reauthenticateWithCredential(credential);
+    AuthCredential credential =
+        EmailAuthProvider.credential(email: email, password: password);
+    return await FirebaseAuth.instance.currentUser!
+        .reauthenticateWithCredential(credential);
   }
 
   /// Deletes the current user after re-authentication.
@@ -118,7 +122,8 @@ class Authentication {
       return FirebaseAuth.instance.currentUser;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'requires-recent-login') {
-        print('The user must reauthenticate before this operation can be executed.');
+        print(
+            'The user must reauthenticate before this operation can be executed.');
       }
     }
     return null;
@@ -129,10 +134,8 @@ class Authentication {
   /// On successful sign-in, returns the [User] object for the user. Prints any errors encountered.
   Future<User?> signinMail(String email, String password) async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password
-      );
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
       print(e);
@@ -148,47 +151,50 @@ class Authentication {
     FirebaseAuth _auth = FirebaseAuth.instance;
     final _codeController = TextEditingController();
     await _auth.verifyPhoneNumber(
-      phoneNumber: mobile,
-      timeout: const Duration(seconds: 60),
-      verificationCompleted: (AuthCredential authCredential) async {
-        await _auth.signInWithCredential(authCredential);
-      },
-      verificationFailed: (FirebaseAuthException authException) {
-        print(authException.message);
-      },
-      codeSent: (String verificationId, int? forceResendingToken) {
-        showDialog(
-          context: context,
-          barrierDismissible: true,
-          builder: (context) => AlertDialog(
-            title: const Text("Enter SMS Code"),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                TextField(controller: _codeController),
-              ],
-            ),
-            actions: <Widget>[
-              ElevatedButton(
-                child: const Text("Done"),
-                onPressed: () async {
-                  FirebaseAuth auth = FirebaseAuth.instance;
-                  var smsCode = _codeController.text.trim();
-                  PhoneAuthCredential _credential = PhoneAuthProvider.credential(verificationId: verificationId, smsCode: smsCode);
-                  await auth.signInWithCredential(_credential);
-                  print("OTP Login Successful");
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("OTP Login Successful")));
-                },
-              )
-            ],
-          )
-        );
-      },
-      codeAutoRetrievalTimeout: (String verificationId) {
-        verificationId = verificationId;
-        print("Timout");
-      }
-    );
+        phoneNumber: mobile,
+        timeout: const Duration(seconds: 60),
+        verificationCompleted: (AuthCredential authCredential) async {
+          await _auth.signInWithCredential(authCredential);
+        },
+        verificationFailed: (FirebaseAuthException authException) {
+          print(authException.message);
+        },
+        codeSent: (String verificationId, int? forceResendingToken) {
+          showDialog(
+              context: context,
+              barrierDismissible: true,
+              builder: (context) => AlertDialog(
+                    title: const Text("Enter SMS Code"),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        TextField(controller: _codeController),
+                      ],
+                    ),
+                    actions: <Widget>[
+                      ElevatedButton(
+                        child: const Text("Done"),
+                        onPressed: () async {
+                          FirebaseAuth auth = FirebaseAuth.instance;
+                          var smsCode = _codeController.text.trim();
+                          PhoneAuthCredential _credential =
+                              PhoneAuthProvider.credential(
+                                  verificationId: verificationId,
+                                  smsCode: smsCode);
+                          await auth.signInWithCredential(_credential);
+                          print("OTP Login Successful");
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text("OTP Login Successful")));
+                        },
+                      )
+                    ],
+                  ));
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {
+          verificationId = verificationId;
+          print("Timout");
+        });
     return _auth;
   }
 
@@ -218,5 +224,4 @@ class Authentication {
     await signOutFacebook();
     print('Logged out of all accounts');
   }
-
 }

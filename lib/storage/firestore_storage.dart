@@ -12,7 +12,8 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 /// A class for handling Firebase Storage operations including file upload, download,
 /// and metadata retrieval, as well as managing Firebase Storage instances.
 class FireStorage {
-  final firebase_storage.FirebaseStorage storage = firebase_storage.FirebaseStorage.instance;
+  final firebase_storage.FirebaseStorage storage =
+      firebase_storage.FirebaseStorage.instance;
 
   /// Returns the instance of [firebase_storage.FirebaseStorage] used in this class.
   firebase_storage.FirebaseStorage getFirestoreStorageInstance() {
@@ -25,7 +26,8 @@ class FireStorage {
   }
 
   /// Lists items with pagination under a specified [filePath], up to [max] items.
-  Future<firebase_storage.ListResult> listMaxItems({int max = 10, String filePath = '/'}) async {
+  Future<firebase_storage.ListResult> listMaxItems(
+      {int max = 10, String filePath = '/'}) async {
     firebase_storage.ListResult result = await storage
         .ref(filePath)
         .list(firebase_storage.ListOptions(maxResults: max));
@@ -40,16 +42,18 @@ class FireStorage {
 
   /// Uploads a file from storage to Firebase Storage or optionally from local assets with [assetPath] to Firebase Storage at [uploadPath].
   /// Optional metadata can be provided with [metadata].
-  Future<void> uploadFile({String assetPath = '', var metadata, String uploadPath = '/'}) async {
+  Future<void> uploadFile(
+      {String assetPath = '', var metadata, String uploadPath = '/'}) async {
     File file;
-    if(assetPath.isNotEmpty) {
+    if (assetPath.isNotEmpty) {
       file = await getFileFromAssets(assetPath);
       await uploadTask(uploadPath, file, metadata: metadata);
     } else {
       FilePickerResult? result = await FilePicker.platform.pickFiles();
       if (result != null) {
         file = File(result.files.single.path!);
-        await uploadTask(uploadPath + '/' + result.files[0].name, file, metadata: metadata);
+        await uploadTask(uploadPath + '/' + result.files[0].name, file,
+            metadata: metadata);
       } else {
         // User canceled the picker
       }
@@ -57,17 +61,17 @@ class FireStorage {
   }
 
   Future<void> uploadTask(String uploadPath, File file, {var metadata}) async {
-    firebase_storage.UploadTask task = storage.ref(uploadPath).putFile(file, metadata);
+    firebase_storage.UploadTask task =
+        storage.ref(uploadPath).putFile(file, metadata);
     task.snapshotEvents.listen((firebase_storage.TaskSnapshot snapshot) {
-        print('Progress: ${(snapshot.bytesTransferred / snapshot.totalBytes) * 100} %');
-      }, 
-      onError: (e) {
-        print(e);
-        if (e.code == 'permission-denied') {
-          print('User does not have permission to upload to this reference.');
-        }
+      print(
+          'Progress: ${(snapshot.bytesTransferred / snapshot.totalBytes) * 100} %');
+    }, onError: (e) {
+      print(e);
+      if (e.code == 'permission-denied') {
+        print('User does not have permission to upload to this reference.');
       }
-    );
+    });
     try {
       await task;
     } catch (e) {
@@ -76,7 +80,8 @@ class FireStorage {
   }
 
   /// Uploads text data [text] to Firebase Storage at [uploadPath] and retrieves it back.
-  Future<String> uploadTextData({required String text, String uploadPath = '/'}) async {
+  Future<String> uploadTextData(
+      {required String text, String uploadPath = '/'}) async {
     Uint8List data = Uint8List.fromList(utf8.encode(text));
     firebase_storage.Reference ref = storage.ref(uploadPath);
     await ref.putData(data);
@@ -86,7 +91,8 @@ class FireStorage {
 
   /// Retrieves custom metadata for a file located at [filePath] in Firebase Storage.
   Future<Map<String, String>?> getMetadata(String filePath) async {
-    firebase_storage.FullMetadata metadata = await storage.ref(filePath).getMetadata();
+    firebase_storage.FullMetadata metadata =
+        await storage.ref(filePath).getMetadata();
     return metadata.customMetadata;
   }
 
@@ -94,13 +100,15 @@ class FireStorage {
   Future<File> getFileFromAssets(String path) async {
     final byteData = await rootBundle.load('assets/$path');
     final file = File('${(await getTemporaryDirectory()).path}/$path');
-    await file.writeAsBytes(byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+    await file.writeAsBytes(byteData.buffer
+        .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
     return file;
   }
 
   /// Downloads a file from Firebase Storage at [firestorePath].
   /// The file can be saved under the optional name [fileName].
-  Future<void> downloadFile({required String firestorePath, String fileName = ''}) async {
+  Future<void> downloadFile(
+      {required String firestorePath, String fileName = ''}) async {
     if (Platform.isIOS || Platform.isAndroid) {
       bool status = await Permission.storage.isGranted;
       if (!status) {
@@ -112,9 +120,9 @@ class FireStorage {
     try {
       await storage.ref(firestorePath).writeToFile(downloadToFile);
       await FilePicker.platform.saveFile(
-        fileName: fileName.isNotEmpty ? fileName : basename(downloadToFile.path), 
-        bytes: downloadToFile.readAsBytesSync()
-      );
+          fileName:
+              fileName.isNotEmpty ? fileName : basename(downloadToFile.path),
+          bytes: downloadToFile.readAsBytesSync());
     } catch (e) {
       print(e);
     }

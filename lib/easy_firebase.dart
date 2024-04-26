@@ -1,3 +1,38 @@
+/// Provides easy access to various Firebase services for Dart and Flutter applications.
+///
+/// This library encapsulates the functionality of Firebase services into
+/// easy-to-use classes and methods, simplifying the integration of Firebase
+/// features into Dart and Flutter applications. It offers convenient wrappers
+/// for authentication, Firestore database operations, Realtime Database operations,
+/// and Firebase Storage operations.
+///
+/// Example usage:
+/// ```dart
+/// import 'package:easy_firebase/easy_firebase.dart';
+///
+/// void main() {
+///   final easyFire = EasyFire();
+///
+///   // Authentication example
+///   final auth = easyFire.getAuthObject();
+///   auth.signInWithEmailAndPassword('email', 'password');
+///
+///   // Firestore example
+///   final firestore = easyFire.getFirestoreObject();
+///   firestore.getData('collection/document');
+///
+///   // Realtime Database example
+///   final rtdb = easyFire.getRtdbObject();
+///   rtdb.getData('path/to/data');
+///
+///   // Firebase Storage example
+///   final storage = easyFire.getStorageObject();
+///   storage.uploadFile('path/to/file', 'destination/path');
+/// }
+/// ```
+///
+/// For more information on Firebase services, refer to the official Firebase documentation:
+/// https://firebase.google.com/docs
 library easy_firebase;
 
 import 'package:easy_firebase/auth/authentication.dart';

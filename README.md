@@ -51,7 +51,7 @@ In app level build.gradle :
 - For using <code>Facebook sign in</code> :   
 <br>
 <b>Note :</b> Do not use flutter_facebook_login package , this package uses flutter_login_facebook .
-Go to this [guide](https://developers.facebook.com/docs/facebook-login/android) and follow only Steps 1,3 ,4, 5 and 6. [ And use the hashes in facebook dev portal ].  
+Go to this [guide](https://developers.facebook.com/docs/facebook-login/android) and follow only Steps 1,3 ,4, 5 and 6. (And use the hashes in facebook dev portal).  
 <br>
 * For the <code>strings.xml</code> , use this template and update the code.  
 <br>
@@ -115,7 +115,7 @@ iOS   </summary>
 
 - For using Facebook sign in :
     * <b>Note :</b> Do not use <code>flutter_facebook_login</code> package , this package uses <code>flutter_login_facebook</code>.  
-* Go to this [guide](https://developers.facebook.com/docs/facebook-login/ios) and follow only Steps 1, 3, 4 and 5. [ And use the hashes in facebook dev portal ].  
+* Go to this [guide](https://developers.facebook.com/docs/facebook-login/ios) and follow only Steps 1, 3, 4 and 5. (And use the hashes in facebook dev portal).  
     * <b>Note :</b> If you’re using both <code>google-sign</code> in and <code>facebook</code> , you should put the <code>CFBundleURLSchemes</code> in the same <code>CFBundleURLTypes</code>.  
 <br>
 * <u>Sample plist code block :</u>  

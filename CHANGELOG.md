@@ -1,3 +1,7 @@
+## 0.1.2
+
+- Minor bug fixes
+
 ## 0.1.1
 
 - Fixed Documentation
